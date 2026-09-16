@@ -1,0 +1,18 @@
+{
+  "version": "1.0.0",
+  "engine": {
+    "max_lateness_ns": 5000000000,
+    "price_jump_threshold_ratio": 0.20,
+    "quarantine_retention_days": 30,
+    "batch_commit_size": 10000
+  },
+  "storage": {
+    "default_db_path": "market_data.db",
+    "enable_wal_mode": true
+  },
+  "validation": {
+    "allow_crossed_quotes": true,
+    "require_strict_positive_price": true,
+    "require_strict_positive_size": true
+  }
+}

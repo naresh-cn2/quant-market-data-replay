@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "QuoteEvent",
+  "description": "Canonical Quote Event (BBO/Top of Book) v1 for quantitative research and replay",
+  "type": "object",
+  "required": ["event_id", "symbol", "timestamp_ns", "bid_price", "bid_size", "ask_price", "ask_size", "source"],
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "description": "Deterministic unique hash identifying this event"
+    },
+    "symbol": {
+      "type": "string",
+      "description": "Standardized ticker/instrument symbol"
+    },
+    "timestamp_ns": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "UTC timestamp in integer nanoseconds since epoch"
+    },
+    "bid_price": {
+      "type": "string",
+      "pattern": "^[0-9]+(\\.[0-9]+)?$",
+      "description": "Exact best bid price as decimal string"
+    },
+    "bid_size": {
+      "type": "string",
+      "pattern": "^[0-9]+(\\.[0-9]+)?$",
+      "description": "Exact best bid size as decimal string"
+    },
+    "ask_price": {
+      "type": "string",
+      "pattern": "^[0-9]+(\\.[0-9]+)?$",
+      "description": "Exact best ask price as decimal string"
+    },
+    "ask_size": {
+      "type": "string",
+      "pattern": "^[0-9]+(\\.[0-9]+)?$",
+      "description": "Exact best ask size as decimal string"
+    },
+    "source": {
+      "type": "string",
+      "description": "Data source / venue identifier"
+    },
+    "sequence_id": {
+      "type": "integer",
+      "description": "Optional original sequence number from feed"
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,7 @@
+{"timestamp": "2026-09-16T10:00:00.100000000Z", "symbol": "AAPL", "price": "150.25", "size": "100", "side": "BUY", "source": "NASDAQ"}
+{"timestamp": "2026-09-16T10:00:00.100000000Z", "symbol": "AAPL", "bid_price": "150.20", "bid_size": "100", "ask_price": "150.25", "ask_size": "200", "source": "NASDAQ"}
+{"timestamp": "2026-09-16T10:00:00.050000000Z", "symbol": "AAPL", "price": "150.22", "size": "50", "side": "SELL", "source": "NASDAQ"}
+{"timestamp": "2026-09-16T10:00:10.000000000Z", "symbol": "AAPL", "price": "150.30", "size": "100", "side": "BUY", "source": "NASDAQ"}
+{"timestamp": "2026-09-16T10:00:00.000000000Z", "symbol": "AAPL", "price": "150.10", "size": "100", "side": "BUY", "source": "NASDAQ"}
+{"timestamp": "2026-09-16T10:00:15.000000000Z", "symbol": "AAPL", "bid_price": "155.00", "bid_size": "100", "ask_price": "154.00", "ask_size": "100", "source": "NASDAQ"}
+{"timestamp": "2026-09-16T10:00:16.000000000Z", "symbol": "AAPL", "price": "220.00", "size": "100", "side": "BUY", "source": "NASDAQ"}

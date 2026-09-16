@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DatasetManifest",
+  "description": "Dataset Provenance, Checksum, and Quality Manifest v1",
+  "type": "object",
+  "required": [
+    "dataset_id",
+    "schema_version",
+    "created_at_utc",
+    "total_records",
+    "trade_count",
+    "quote_count",
+    "quarantine_count",
+    "min_timestamp_ns",
+    "max_timestamp_ns",
+    "sha256_checksum",
+    "config_hash"
+  ],
+  "properties": {
+    "dataset_id": {
+      "type": "string"
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "created_at_utc": {
+      "type": "string"
+    },
+    "source_file": {
+      "type": "string"
+    },
+    "total_records": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "trade_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "quote_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "quarantine_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "min_timestamp_ns": {
+      "type": "integer"
+    },
+    "max_timestamp_ns": {
+      "type": "integer"
+    },
+    "sha256_checksum": {
+      "type": "string"
+    },
+    "config_hash": {
+      "type": "string"
+    },
+    "symbols": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": false
+}

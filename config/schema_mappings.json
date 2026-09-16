@@ -1,0 +1,21 @@
+{
+  "default": {
+    "trade": {
+      "symbol": ["symbol", "ticker", "sym", "instrument"],
+      "timestamp": ["timestamp", "timestamp_ns", "ts", "time", "datetime", "transact_time"],
+      "price": ["price", "px", "last_price", "p", "trade_price"],
+      "size": ["size", "qty", "volume", "vol", "sz", "quantity", "trade_size"],
+      "side": ["side", "direction", "aggressor_side", "action"],
+      "source": ["source", "exchange", "venue", "feed", "src"]
+    },
+    "quote": {
+      "symbol": ["symbol", "ticker", "sym", "instrument"],
+      "timestamp": ["timestamp", "timestamp_ns", "ts", "time", "datetime", "quote_time"],
+      "bid_price": ["bid_price", "bid_px", "bid", "bidprice", "bp", "best_bid_price"],
+      "bid_size": ["bid_size", "bid_sz", "bid_qty", "bidsize", "bs", "best_bid_size"],
+      "ask_price": ["ask_price", "ask_px", "ask", "askprice", "ap", "offer", "best_ask_price"],
+      "ask_size": ["ask_size", "ask_sz", "ask_qty", "asksize", "as", "offer_size", "best_ask_size"],
+      "source": ["source", "exchange", "venue", "feed", "src"]
+    }
+  }
+}

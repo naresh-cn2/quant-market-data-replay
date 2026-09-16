@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "QuarantineRecord",
+  "description": "Schema for quarantined invalid or corrupt records",
+  "type": "object",
+  "required": [
+    "quarantine_id",
+    "timestamp_ns",
+    "source",
+    "raw_record",
+    "error_code",
+    "error_message",
+    "severity"
+  ],
+  "properties": {
+    "quarantine_id": {
+      "type": "string"
+    },
+    "timestamp_ns": {
+      "type": "integer"
+    },
+    "source": {
+      "type": "string"
+    },
+    "raw_record": {
+      "type": "string"
+    },
+    "error_code": {
+      "type": "string"
+    },
+    "error_message": {
+      "type": "string"
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["HARD_INVALID", "FATAL_SYNTAX"]
+    },
+    "field_name": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

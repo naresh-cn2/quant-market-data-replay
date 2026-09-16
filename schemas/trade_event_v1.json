@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TradeEvent",
+  "description": "Canonical Trade Event v1 for quantitative research and replay",
+  "type": "object",
+  "required": ["event_id", "symbol", "timestamp_ns", "price", "size", "side", "source"],
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "description": "Deterministic unique hash identifying this event"
+    },
+    "symbol": {
+      "type": "string",
+      "description": "Standardized ticker/instrument symbol"
+    },
+    "timestamp_ns": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "UTC timestamp in integer nanoseconds since epoch"
+    },
+    "price": {
+      "type": "string",
+      "pattern": "^[0-9]+(\\.[0-9]+)?$",
+      "description": "Exact trade execution price as decimal string"
+    },
+    "size": {
+      "type": "string",
+      "pattern": "^[0-9]+(\\.[0-9]+)?$",
+      "description": "Exact trade execution quantity as decimal string"
+    },
+    "side": {
+      "type": "string",
+      "enum": ["BUY", "SELL", "UNKNOWN"],
+      "description": "Aggressor trade side"
+    },
+    "source": {
+      "type": "string",
+      "description": "Data source / venue identifier"
+    },
+    "sequence_id": {
+      "type": "integer",
+      "description": "Optional original sequence number from feed"
+    }
+  },
+  "additionalProperties": false
+}
