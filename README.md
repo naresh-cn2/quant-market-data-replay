@@ -1,4 +1,4 @@
-# Quantitative Market Data & Historical Replay Infrastructure (Project P01)
+# Quantitative Market Data & Historical Replay Infrastructure 
 
 A deterministic, point-in-time safe market data foundation engineered for quantitative research, algorithmic simulation, and microstructure analysis.
 
