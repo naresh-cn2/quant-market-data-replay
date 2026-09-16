@@ -1,6 +1,6 @@
 # Benchmark Execution Evidence
 
-This document records the empirical performance benchmarks executed on the reference architecture of **Project P01 (Quantitative Market Data & Historical Replay Infrastructure)**.
+This document records the empirical performance benchmarks executed on the reference architecture of the **Quantitative Market Data & Historical Replay Infrastructure**.
 
 All benchmarks were executed using the built-in benchmarking harness ([`benchmarks/run_benchmarks.py`](../../benchmarks/run_benchmarks.py)) on synthetic market datasets.
 

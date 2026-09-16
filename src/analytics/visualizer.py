@@ -417,7 +417,7 @@ def generate_html_report(
     </div>
 
     <footer>
-      <div>Quantitative Market Data &amp; Historical Replay Infrastructure &bull; P01 Analytics</div>
+      <div>Quantitative Market Data &amp; Historical Replay Infrastructure &bull; Microstructure Analytics</div>
       <div>Generated with zero external dependencies</div>
     </footer>
   </div>

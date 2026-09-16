@@ -8,7 +8,7 @@ Naive solutions either:
 2. Ignore out-of-order events, causing historical replay state corruptions.
 
 ## 2. Sliding Watermark Algorithm
-P01 implements a bounded priority buffer with a sliding watermark:
+The engine implements a bounded priority buffer with a sliding watermark:
 
 1. Let $L$ be the configured maximum allowed lateness window in nanoseconds (e.g., $L = 5,000,000,000\text{ ns}$).
 2. Maintain $T_{\max} = \max_{e \in \text{Seen}} (e.\text{timestamp\_ns})$.

@@ -1,6 +1,6 @@
 # System Architecture & Pipeline Dataflow
 
-This document visualizes the complete end-to-end dataflow and architectural components of **Project P01 (Quantitative Market Data & Historical Replay Infrastructure)**.
+This document visualizes the complete end-to-end dataflow and architectural components of the **Quantitative Market Data & Historical Replay Infrastructure**.
 
 ---
 

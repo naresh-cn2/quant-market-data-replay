@@ -15,7 +15,7 @@ Quantitative strategy research and historical backtesting frequently fail in pro
 - **Out-of-Order Packet Jitter**: Network jitter and exchange packet interleaving produce chronologically scrambled event streams, breaking causal order in order book reconstruction.
 - **Non-Deterministic Replay**: Arbitrary tie-breaking when two events share identical timestamps leads to unreproducible backtest results across different machines.
 
-**Project P01** solves these fundamental challenges by implementing a zero-dependency, formal market data engineering foundation that guarantees exact decimal arithmetic, bounded memory reordering, cryptographic dataset provenance, and bit-for-bit reproducible point-in-time replay.
+This platform solves these fundamental challenges by implementing a zero-dependency, formal market data engineering foundation that guarantees exact decimal arithmetic, bounded memory reordering, cryptographic dataset provenance, and bit-for-bit reproducible point-in-time replay.
 
 ---
 
@@ -334,9 +334,9 @@ python -m benchmarks.run_benchmarks --count 100000 --format jsonl
 
 ---
 
-## 13. Scope Boundaries & Future Relationship
+## 13. Scope Boundaries & Downstream Integration
 
-### In-Scope (Project P01)
+### Core Functional Scope
 - Deterministic market data ingestion, normalization, and validation.
 - Bounded out-of-order reordering via sliding watermark priority queues.
 - Point-in-time safe historical replay with composite tie-breaking.
@@ -349,8 +349,8 @@ python -m benchmarks.run_benchmarks --count 100000 --format jsonl
 - Portfolio optimization and risk factor modeling.
 - Strategy signal generation and machine learning predictions.
 
-### Downstream Integration (P02+)
-Project P01 forms the core deterministic replay substrate for:
-- **Project P02**: Limit Order Book (LOB) reconstruction and matching simulation.
-- **Project P03**: Alpha signal research and feature engineering.
-- **Project P04**: Institutional execution algorithms (TWAP, VWAP, Implementation Shortfall).
+### Downstream Integration
+This market data replay architecture provides the foundation for:
+- Limit Order Book (LOB) reconstruction and matching simulation.
+- Alpha signal research and microstructure feature engineering.
+- Institutional execution algorithms (TWAP, VWAP, Implementation Shortfall).

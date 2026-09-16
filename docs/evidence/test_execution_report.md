@@ -1,6 +1,6 @@
 # Test Suite Execution Report
 
-This document records the automated verification status of **Project P01 (Quantitative Market Data & Historical Replay Infrastructure)**.
+This document records the automated verification status of the **Quantitative Market Data & Historical Replay Infrastructure**.
 
 ---
 

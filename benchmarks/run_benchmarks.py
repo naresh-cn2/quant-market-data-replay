@@ -95,7 +95,7 @@ def run_benchmark(num_events: int = 100_000, dataset_format: str = "jsonl") -> d
 
 
 def main():
-    parser = argparse.ArgumentParser(description="P01 Performance Benchmark Runner")
+    parser = argparse.ArgumentParser(description="Quantitative Market Data Performance Benchmark Runner")
     parser.add_argument("--count", type=int, default=100000, help="Number of events to benchmark (e.g. 100000 or 1000000)")
     parser.add_argument("--format", choices=["jsonl", "csv"], default="jsonl", help="Dataset format")
     args = parser.parse_args()
