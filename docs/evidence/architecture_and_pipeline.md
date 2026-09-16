@@ -111,8 +111,6 @@ quant-market-data-replay/
 ├── run_tests.py                   # Automated test runner script
 ├── main.py                        # Root CLI entry point
 ├── README.md                      # Comprehensive project overview & documentation
-├── SPEC.md                        # Master specification & formal requirements
-├── AGENT_CONTRACT.md              # Engineering boundaries & safety contract
 └── VERIFICATION_GUIDE.md          # Independent verification and reproduction guide
 ```
 
