@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AAPL Quantitative Market Report</title>
+  <style>
+    :root {
+      --bg-dark: #0B0E14;
+      --card-bg: #111622;
+      --card-border: #1E2638;
+      --text-main: #F0F4F8;
+      --text-muted: #8E9AA8;
+      --accent-blue: #00B0FF;
+      --accent-green: #00E676;
+      --accent-red: #FF5252;
+      --accent-purple: #7C4DFF;
+      --font-mono: "SF Mono", "Consolas", "Liberation Mono", Menlo, Courier, monospace;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.5;
+      padding: 32px 24px;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--card-border);
+      margin-bottom: 32px;
+      gap: 16px;
+    }
+    .header-title h1 {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .symbol-tag {
+      background: rgba(0, 176, 255, 0.12);
+      color: var(--accent-blue);
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 18px;
+      font-weight: 600;
+      border: 1px solid rgba(0, 176, 255, 0.3);
+    }
+    .header-subtitle {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-top: 6px;
+    }
+    .badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .badge {
+      background: #182030;
+      color: #94A3B8;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 1px solid #232E45;
+    }
+    .grid-kpi {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .kpi-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+    .kpi-card:hover {
+      border-color: #2D3A54;
+      transform: translateY(-2px);
+    }
+    .kpi-label {
+      color: var(--text-muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .kpi-value {
+      font-size: 24px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      color: #FFFFFF;
+    }
+    .kpi-subtext {
+      color: var(--text-muted);
+      font-size: 12px;
+      margin-top: 6px;
+      font-family: var(--font-sans);
+    }
+    .chart-section {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+    .chart-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      padding: 0 8px;
+    }
+    .chart-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #F8FAFC;
+    }
+    .chart-description {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .stats-table-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 32px;
+    }
+    .stats-table-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: #F8FAFC;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    th {
+      text-align: left;
+      padding: 10px 12px;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--card-border);
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+    }
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #161D2C;
+      font-family: var(--font-mono);
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+    footer {
+      margin-top: 48px;
+      padding-top: 20px;
+      border-top: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #64748B;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="header-title">
+        <h1>Microstructure Report <span class="symbol-tag">AAPL</span></h1>
+        <div class="header-subtitle">Deterministic Quantitative Market Data Replay &amp; Liquidity Profile &bull; Source: sample_market.db</div>
+      </div>
+      <div class="badges">
+        <span class="badge">Exact Decimal Precision</span>
+        <span class="badge">64-bit UTC Nanoseconds</span>
+        <span class="badge">Deterministic Ordering</span>
+      </div>
+    </header>
+
+    <!-- KPI Section -->
+    <div class="grid-kpi">
+      <div class="kpi-card">
+        <div class="kpi-label">Cumulative Volume</div>
+        <div class="kpi-value">400</div>
+        <div class="kpi-subtext">Trades: 3 | Quotes: 2</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">Execution VWAP</div>
+        <div class="kpi-value">$150.2850</div>
+        <div class="kpi-subtext">Range: $150.25 &ndash; $150.30</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">Mean Relative Spread</div>
+        <div class="kpi-value" style="color: var(--accent-purple);">3.66 bps</div>
+        <div class="kpi-subtext">Quoted Spread: $0.0550 | Crossed: 0</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">Order Flow Imbalance</div>
+        <div class="kpi-value" style="color: #FF5252;">-25.00%</div>
+        <div class="kpi-subtext">Buy Vol: 150 | Sell Vol: 250</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">Median Arrival Delta (p50)</div>
+        <div class="kpi-value" style="color: var(--accent-blue);">50000.0 &mu;s</div>
+        <div class="kpi-subtext">p90: 100000.0&mu;s | p99: 100000.0&mu;s</div>
+      </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="chart-section">
+      <div class="chart-card">
+        <div class="chart-header">
+          <div class="chart-title">Price Execution Trajectory &amp; Cumulative Volume-Weighted Average Price</div>
+          <div class="chart-description">Every fill plotted against running institutional benchmark</div>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 320" width="100%" height="320" class="chart-svg">
+  <!-- Card Background -->
+  <rect width="900" height="320" fill="#111622" rx="8"/>
+  <rect x="1" y="1" width="898" height="318" fill="none" stroke="#1E2638" stroke-width="1" rx="8"/>
+
+  <!-- Title & Legend -->
+  <text x="75" y="32" fill="#F0F4F8" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600">AAPL Price &amp; Cumulative VWAP Execution Trajectory</text>
+
+  <g transform="translate(585, 20)">
+    <circle cx="10" cy="10" r="4" fill="#00E676"/>
+    <text x="20" y="14" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="11">Buy Trade</text>
+    <circle cx="85" cy="10" r="4" fill="#FF5252"/>
+    <text x="95" y="14" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="11">Sell Trade</text>
+    <line x1="160" y1="10" x2="185" y2="10" stroke="#00B0FF" stroke-width="2.5"/>
+    <text x="195" y="14" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="11">Cumulative VWAP</text>
+  </g>
+
+  <!-- Grid & Ticks -->
+  <line x1="75" y1="275.00" x2="865" y2="275.00" stroke="#1E2638" stroke-width="1" stroke-dasharray="3,3"/><line x1="75" y1="231.00" x2="865" y2="231.00" stroke="#1E2638" stroke-width="1" stroke-dasharray="3,3"/><line x1="75" y1="187.00" x2="865" y2="187.00" stroke="#1E2638" stroke-width="1" stroke-dasharray="3,3"/><line x1="75" y1="143.00" x2="865" y2="143.00" stroke="#1E2638" stroke-width="1" stroke-dasharray="3,3"/><line x1="75" y1="99.00" x2="865" y2="99.00" stroke="#1E2638" stroke-width="1" stroke-dasharray="3,3"/><line x1="75" y1="55.00" x2="865" y2="55.00" stroke="#1E2638" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="63" y="279.00" fill="#8E9AA8" font-family="system-ui, sans-serif" font-size="11" text-anchor="end">$150.25</text><text x="63" y="235.00" fill="#8E9AA8" font-family="system-ui, sans-serif" font-size="11" text-anchor="end">$150.26</text><text x="63" y="191.00" fill="#8E9AA8" font-family="system-ui, sans-serif" font-size="11" text-anchor="end">$150.27</text><text x="63" y="147.00" fill="#8E9AA8" font-family="system-ui, sans-serif" font-size="11" text-anchor="end">$150.28</text><text x="63" y="103.00" fill="#8E9AA8" font-family="system-ui, sans-serif" font-size="11" text-anchor="end">$150.29</text><text x="63" y="59.00" fill="#8E9AA8" font-family="system-ui, sans-serif" font-size="11" text-anchor="end">$150.30</text>
+  <text x="75" y="302" fill="#8E9AA8" font-family="system-ui, sans-serif" font-size="11" text-anchor="start">T+0s</text><text x="470.0" y="302" fill="#8E9AA8" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Elapsed: 0.10s</text><text x="865" y="302" fill="#8E9AA8" font-family="system-ui, sans-serif" font-size="11" text-anchor="end">0.20s</text>
+
+  <!-- Data Series -->
+  <path d="M 75.00,275.00 L 470.00,117.86 L 865.00,121.00" fill="none" stroke="#00B0FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="75.00" cy="275.00" r="3.5" fill="#00E676" fill-opacity="0.85" stroke="#0B0E14" stroke-width="0.8"><title>Time: 1789552800100000000ns | Px: 150.25 | Sz: 100 | Side: BUY</title></circle><circle cx="470.00" cy="55.00" r="3.5" fill="#FF5252" fill-opacity="0.85" stroke="#0B0E14" stroke-width="0.8"><title>Time: 1789552800200000000ns | Px: 150.30 | Sz: 250 | Side: SELL</title></circle><circle cx="865.00" cy="143.00" r="3.5" fill="#00E676" fill-opacity="0.85" stroke="#0B0E14" stroke-width="0.8"><title>Time: 1789552800300000000ns | Px: 150.28 | Sz: 50 | Side: BUY</title></circle>
+</svg>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-header">
+          <div class="chart-title">Top-of-Book Relative Spread Dynamics</div>
+          <div class="chart-description">Instantaneous quoted spread in basis points (ap - bp) / mid &times; 10,000</div>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 280" width="100%" height="280" class="chart-svg">
+  <defs>
+    <linearGradient id="spreadGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#7C4DFF" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#7C4DFF" stop-opacity="0.02"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="280" fill="#111622" rx="8"/>
+  <rect x="1" y="1" width="898" height="278" fill="none" stroke="#1E2638" stroke-width="1" rx="8"/>
+
+  <text x="75" y="32" fill="#F0F4F8" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600">AAPL Top-of-Book Relative Spread Dynamics (Basis Points)</text>
+
+  <g transform="translate(685, 20)">
+    <rect x="0" y="5" width="12" height="8" fill="#7C4DFF" rx="2"/>
+    <text x="18" y="13" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="11">Relative Spread (bps)</text>
+  </g>
+
+  <line x1="75" y1="235.00" x2="865" y2="235.00" stroke="#1E2638" stroke-width="1" stroke-dasharray="3,3"/><line x1="75" y1="188.75" x2="865" y2="188.75" stroke="#1E2638" stroke-width="1" stroke-dasharray="3,3"/><line x1="75" y1="142.50" x2="865" y2="142.50" stroke="#1E2638" stroke-width="1" stroke-dasharray="3,3"/><line x1="75" y1="96.25" x2="865" y2="96.25" stroke="#1E2638" stroke-width="1" stroke-dasharray="3,3"/><line x1="75" y1="50.00" x2="865" y2="50.00" stroke="#1E2638" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="63" y="239.00" fill="#8E9AA8" font-family="system-ui, sans-serif" font-size="11" text-anchor="end">3.3 bps</text><text x="63" y="192.75" fill="#8E9AA8" font-family="system-ui, sans-serif" font-size="11" text-anchor="end">3.5 bps</text><text x="63" y="146.50" fill="#8E9AA8" font-family="system-ui, sans-serif" font-size="11" text-anchor="end">3.7 bps</text><text x="63" y="100.25" fill="#8E9AA8" font-family="system-ui, sans-serif" font-size="11" text-anchor="end">3.8 bps</text><text x="63" y="54.00" fill="#8E9AA8" font-family="system-ui, sans-serif" font-size="11" text-anchor="end">4.0 bps</text>
+  <text x="75" y="262" fill="#8E9AA8" font-family="system-ui, sans-serif" font-size="11" text-anchor="start">T+0s</text><text x="470.0" y="262" fill="#8E9AA8" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Elapsed: 0.05s</text><text x="865" y="262" fill="#8E9AA8" font-family="system-ui, sans-serif" font-size="11" text-anchor="end">0.10s</text>
+
+  <path d="M 75.00,235.00 L 75.00,235.00 865.00,50.00 L 865.00,235.00 Z" fill="url(#spreadGrad)"/>
+  <path d="M 75.00,235.00 L 865.00,50.00" fill="none" stroke="#7C4DFF" stroke-width="2"/>
+</svg>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-header">
+          <div class="chart-title">Signed Order Flow Imbalance Ratio</div>
+          <div class="chart-description">Aggressor flow ratio (Buy - Sell) / (Buy + Sell) reflecting buyer/seller pressure</div>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 280" width="100%" height="280" class="chart-svg">
+  <rect width="900" height="280" fill="#111622" rx="8"/>
+  <rect x="1" y="1" width="898" height="278" fill="none" stroke="#1E2638" stroke-width="1" rx="8"/>
+
+  <text x="75" y="32" fill="#F0F4F8" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600">AAPL Cumulative Order Flow Imbalance Ratio</text>
+
+  <!-- Shaded Bands -->
+  <rect x="75" y="50.00" width="790" height="92.5" fill="#00E676" fill-opacity="0.04"/>
+  <rect x="75" y="142.50" width="790" height="92.5" fill="#FF5252" fill-opacity="0.04"/>
+
+  <line x1="75" y1="50.00" x2="865" y2="50.00" stroke="#1E2638" stroke-width="1" stroke-dasharray="3,3"/><line x1="75" y1="142.50" x2="865" y2="142.50" stroke="#475569" stroke-width="1.2"/><line x1="75" y1="235.00" x2="865" y2="235.00" stroke="#1E2638" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="63" y="54.00" fill="#00E676" font-family="system-ui, sans-serif" font-size="11" text-anchor="end">+1.0 (Buy)</text><text x="63" y="146.50" fill="#8E9AA8" font-family="system-ui, sans-serif" font-size="11" text-anchor="end">0.0 (Neutral)</text><text x="63" y="239.00" fill="#FF5252" font-family="system-ui, sans-serif" font-size="11" text-anchor="end">-1.0 (Sell)</text>
+  <text x="75" y="262" fill="#8E9AA8" font-family="system-ui, sans-serif" font-size="11" text-anchor="start">T+0s</text><text x="470.0" y="262" fill="#8E9AA8" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">Elapsed: 0.10s</text><text x="865" y="262" fill="#8E9AA8" font-family="system-ui, sans-serif" font-size="11" text-anchor="end">0.20s</text>
+
+  <path d="M 75.00,50.00 L 470.00,182.14 L 865.00,165.62" fill="none" stroke="#00E5FF" stroke-width="2.2" stroke-linejoin="round"/>
+</svg>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-header">
+          <div class="chart-title">Packet Inter-Arrival Latency &amp; Jitter Distribution</div>
+          <div class="chart-description">High-precision &Delta;t distribution with median, 90th, and 99th percentile markers</div>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 280" width="100%" height="280" class="chart-svg">
+  <rect width="900" height="280" fill="#111622" rx="8"/>
+  <rect x="1" y="1" width="898" height="278" fill="none" stroke="#1E2638" stroke-width="1" rx="8"/>
+
+  <text x="75" y="32" fill="#F0F4F8" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600">AAPL Inter-Arrival Jitter / Latency Distribution (Microseconds)</text>
+
+  <!-- Bars -->
+  <rect x="75.00" y="235.00" width="27.98" height="0.00" fill="#38BDF8" fill-opacity="0.8" rx="2"><title>Range: 0.0-6250.0μs | Count: 0</title></rect><rect x="107.92" y="235.00" width="27.98" height="0.00" fill="#38BDF8" fill-opacity="0.8" rx="2"><title>Range: 6250.0-12500.0μs | Count: 0</title></rect><rect x="140.83" y="235.00" width="27.98" height="0.00" fill="#38BDF8" fill-opacity="0.8" rx="2"><title>Range: 12500.0-18750.0μs | Count: 0</title></rect><rect x="173.75" y="235.00" width="27.98" height="0.00" fill="#38BDF8" fill-opacity="0.8" rx="2"><title>Range: 18750.0-25000.0μs | Count: 0</title></rect><rect x="206.67" y="235.00" width="27.98" height="0.00" fill="#38BDF8" fill-opacity="0.8" rx="2"><title>Range: 25000.0-31250.0μs | Count: 0</title></rect><rect x="239.58" y="235.00" width="27.98" height="0.00" fill="#38BDF8" fill-opacity="0.8" rx="2"><title>Range: 31250.0-37500.0μs | Count: 0</title></rect><rect x="272.50" y="235.00" width="27.98" height="0.00" fill="#38BDF8" fill-opacity="0.8" rx="2"><title>Range: 37500.0-43750.0μs | Count: 0</title></rect><rect x="305.42" y="235.00" width="27.98" height="0.00" fill="#38BDF8" fill-opacity="0.8" rx="2"><title>Range: 43750.0-50000.0μs | Count: 0</title></rect><rect x="338.33" y="50.00" width="27.98" height="185.00" fill="#38BDF8" fill-opacity="0.8" rx="2"><title>Range: 50000.0-56250.0μs | Count: 3</title></rect><rect x="371.25" y="235.00" width="27.98" height="0.00" fill="#38BDF8" fill-opacity="0.8" rx="2"><title>Range: 56250.0-62500.0μs | Count: 0</title></rect><rect x="404.17" y="235.00" width="27.98" height="0.00" fill="#38BDF8" fill-opacity="0.8" rx="2"><title>Range: 62500.0-68750.0μs | Count: 0</title></rect><rect x="437.08" y="235.00" width="27.98" height="0.00" fill="#38BDF8" fill-opacity="0.8" rx="2"><title>Range: 68750.0-75000.0μs | Count: 0</title></rect><rect x="470.00" y="235.00" width="27.98" height="0.00" fill="#38BDF8" fill-opacity="0.8" rx="2"><title>Range: 75000.0-81250.0μs | Count: 0</title></rect><rect x="502.92" y="235.00" width="27.98" height="0.00" fill="#38BDF8" fill-opacity="0.8" rx="2"><title>Range: 81250.0-87500.0μs | Count: 0</title></rect><rect x="535.83" y="235.00" width="27.98" height="0.00" fill="#38BDF8" fill-opacity="0.8" rx="2"><title>Range: 87500.0-93750.0μs | Count: 0</title></rect><rect x="568.75" y="235.00" width="27.98" height="0.00" fill="#38BDF8" fill-opacity="0.8" rx="2"><title>Range: 93750.0-100000.0μs | Count: 0</title></rect><rect x="601.67" y="173.33" width="27.98" height="61.67" fill="#38BDF8" fill-opacity="0.8" rx="2"><title>Range: 100000.0-106250.0μs | Count: 1</title></rect><rect x="634.58" y="235.00" width="27.98" height="0.00" fill="#38BDF8" fill-opacity="0.8" rx="2"><title>Range: 106250.0-112500.0μs | Count: 0</title></rect><rect x="667.50" y="235.00" width="27.98" height="0.00" fill="#38BDF8" fill-opacity="0.8" rx="2"><title>Range: 112500.0-118750.0μs | Count: 0</title></rect><rect x="700.42" y="235.00" width="27.98" height="0.00" fill="#38BDF8" fill-opacity="0.8" rx="2"><title>Range: 118750.0-125000.0μs | Count: 0</title></rect><rect x="733.33" y="235.00" width="27.98" height="0.00" fill="#38BDF8" fill-opacity="0.8" rx="2"><title>Range: 125000.0-131250.0μs | Count: 0</title></rect><rect x="766.25" y="235.00" width="27.98" height="0.00" fill="#38BDF8" fill-opacity="0.8" rx="2"><title>Range: 131250.0-137500.0μs | Count: 0</title></rect><rect x="799.17" y="235.00" width="27.98" height="0.00" fill="#38BDF8" fill-opacity="0.8" rx="2"><title>Range: 137500.0-143750.0μs | Count: 0</title></rect><rect x="832.08" y="235.00" width="27.98" height="0.00" fill="#38BDF8" fill-opacity="0.8" rx="2"><title>Range: 143750.0-150000.0μs | Count: 0</title></rect>
+
+  <!-- Percentile Markers -->
+  <line x1="338.33" y1="50" x2="338.33" y2="235" stroke="#00E676" stroke-width="1.8" stroke-dasharray="4,3"/><text x="338.33" y="42" fill="#00E676" font-family="system-ui, sans-serif" font-size="10" font-weight="600" text-anchor="middle">p50: 50000.0μs</text><line x1="601.67" y1="50" x2="601.67" y2="235" stroke="#FFB300" stroke-width="1.8" stroke-dasharray="4,3"/><text x="601.67" y="42" fill="#FFB300" font-family="system-ui, sans-serif" font-size="10" font-weight="600" text-anchor="middle">p90: 100000.0μs</text><line x1="601.67" y1="50" x2="601.67" y2="235" stroke="#FF1744" stroke-width="1.8" stroke-dasharray="4,3"/><text x="601.67" y="42" fill="#FF1744" font-family="system-ui, sans-serif" font-size="10" font-weight="600" text-anchor="middle">p99: 100000.0μs</text>
+
+  <!-- Ticks -->
+  <text x="75" y="262" fill="#8E9AA8" font-family="system-ui, sans-serif" font-size="11" text-anchor="start">0 μs</text><text x="470.0" y="262" fill="#8E9AA8" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">75000.0 μs</text><text x="865" y="262" fill="#8E9AA8" font-family="system-ui, sans-serif" font-size="11" text-anchor="end">150000.0 μs</text>
+</svg>
+      </div>
+    </div>
+
+    <!-- Microstructure Metrics Table -->
+    <div class="stats-table-card">
+      <div class="stats-table-title">Microstructure Summary &amp; Latency Profiles</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Value</th>
+            <th>Unit / Invariant</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Total Ingested Events</td>
+            <td>5</td>
+            <td>Deterministic Replay Sequence</td>
+          </tr>
+          <tr>
+            <td>Trade Executions</td>
+            <td>3</td>
+            <td>Discrete trade prints</td>
+          </tr>
+          <tr>
+            <td>Top-of-Book Quotes</td>
+            <td>2</td>
+            <td>BBO updates</td>
+          </tr>
+          <tr>
+            <td>Cumulative Turnover / Notional</td>
+            <td>$60,114.00</td>
+            <td>Exact Decimal arithmetic</td>
+          </tr>
+          <tr>
+            <td>Volume Imbalance Ratio</td>
+            <td>-0.25</td>
+            <td>Bounded [-1.0, 1.0]</td>
+          </tr>
+          <tr>
+            <td>Mean Quoted Spread</td>
+            <td>$0.0550</td>
+            <td>Ask price &minus; Bid price</td>
+          </tr>
+          <tr>
+            <td>Mean Relative Spread</td>
+            <td>3.66 bps</td>
+            <td>Spread relative to midpoint in basis points</td>
+          </tr>
+          <tr>
+            <td>Crossed Quote Instances</td>
+            <td>0</td>
+            <td>Bid price &gt; Ask price anomalies</td>
+          </tr>
+          <tr>
+            <td>Min Inter-Arrival Latency</td>
+            <td>50000.000 &mu;s (50,000,000 ns)</td>
+            <td>64-bit UTC timestamp delta</td>
+          </tr>
+          <tr>
+            <td>Median Inter-Arrival Latency (p50)</td>
+            <td>50000.000 &mu;s (50,000,000 ns)</td>
+            <td>50th percentile jitter</td>
+          </tr>
+          <tr>
+            <td>90th Percentile Latency (p90)</td>
+            <td>100000.000 &mu;s (100,000,000 ns)</td>
+            <td>90th percentile jitter</td>
+          </tr>
+          <tr>
+            <td>99th Percentile Latency (p99)</td>
+            <td>100000.000 &mu;s (100,000,000 ns)</td>
+            <td>99th percentile jitter tail risk</td>
+          </tr>
+          <tr>
+            <td>Max Inter-Arrival Latency</td>
+            <td>100000.000 &mu;s (100,000,000 ns)</td>
+            <td>Maximum observed packet interval</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <footer>
+      <div>Quantitative Market Data &amp; Historical Replay Infrastructure &bull; Microstructure Analytics</div>
+      <div>Generated with zero external dependencies</div>
+    </footer>
+  </div>
+</body>
+</html>
